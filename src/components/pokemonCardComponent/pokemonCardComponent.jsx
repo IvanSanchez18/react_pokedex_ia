@@ -1,44 +1,69 @@
-import "./pokemonCardComponent.css"
-import { Col } from "react-bootstrap"
-import {getPokemonDetails} from "../../services/pokeApiSerive"
-import {formatPokedexPosition} from "../../services/helperService"
-import { useState } from "react";
+import "./pokemonCardComponent.css";
+import { formatPokedexPosition } from "../../services/helperService";
+import { Col } from "react-bootstrap";
 
-function PokemonCardComponent({name, url}){
+const TYPE_COLORS = {
+    fire: "#F08030",
+    water: "#6890F0",
+    grass: "#78C850",
+    electric: "#F8D030",
+    psychic: "#F85888",
+    ice: "#98D8D8",
+    dragon: "#7038F8",
+    dark: "#705848",
+    fairy: "#EE99AC",
+    normal: "#A8A878",
+    fighting: "#C03028",
+    flying: "#A890F0",
+    poison: "#A040A0",
+    ground: "#E0C068",
+    rock: "#B8A038",
+    bug: "#A8B820",
+    ghost: "#705898",
+    steel: "#B8B8D0"
+};
 
-    const [hp, setHp] = useState(0);
-    const [pokedexPosition, setPokedexPosition] = useState("");
+function PokemonCardComponent({ name, image, hp, order, abilities, types }) {
 
-    getPokemonDetails(url).then((response) => {
-        setHp(response.stats[0].base_stat)
-        setPokedexPosition(formatPokedexPosition(response.order));
-    })
+    const mainType = types[0];
+    const color = TYPE_COLORS[mainType] || "#000";
 
     return (
-        <>
-            <Col lg={4}>
-                <div className="pokemon-card-main">
-                    <div className="pokemon-card-container">
-                        <div className="pokemon-card-header">
-                            <div>
-                                <h4>{name}</h4>
-                            </div>
-                            <div>
-                                <label className="life-stat">HP{hp}</label>
-                                <label className="pokedex-position">#{pokedexPosition}</label>
-                            </div>
-                        </div>
-                        <div className="pokemon-card-image-container">
+        <Col lg={4}>
+            <div className="pokemon-card-main" style={{ borderColor: color }} >
+                <div className="pokemon-card-container" style={{ backgroundColor: color + "22" }} >
 
-                        </div>
-                        <div className="pokemon-card-description">
-                            
+                    <div className="pokemon-card-header">
+                        <h4>{name.toUpperCase()}</h4>
+
+                        <div className="pokemon-card-header-stats">
+                            <label className="life-stat">HP {hp}</label>
+                            <label className="pokedex-position">
+                                #{formatPokedexPosition(order)}
+                            </label>
                         </div>
                     </div>
+
+                    <div className="pokemon-card-image-container">
+                        <img src={image} alt={name} />
+                    </div>
+
+                    <div className="pokemon-card-description">
+                        <div>
+                            <strong>Abilities</strong>
+                        </div>
+
+                        {abilities.map((ab) => (
+                            <div key={ab} className="ability-row">
+                                <span>{ab}</span>
+                            </div>
+                        ))}
+                    </div>
+
                 </div>
-            </Col>
-        </>
-    )
+            </div>
+        </Col>
+    );
 }
 
-export default PokemonCardComponent
+export default PokemonCardComponent;
