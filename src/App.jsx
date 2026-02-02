@@ -7,7 +7,9 @@ import Home from "./pages/home";
 import Page1 from './pages/page1';
 import Page2 from './pages/page2';
 import { Navbar, Container, Nav, Form, Button, Row, Col } from 'react-bootstrap';
- 
+
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 import './App.css'
 
 function App() {

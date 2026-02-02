@@ -92,8 +92,38 @@
     background-color: blue !important;
 }
 
-/***/
+/*******************************************/
+/*Paginacion*/
 
+.pagination-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.pagination-btn {
+    padding: 8px 14px;
+    background-color: white;
+    border: 2px solid rgb(226, 232, 240);
+    border-radius: 30%;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.pagination-btn.active {
+    background-color: rgb(277, 53, 13);
+    border-color: rgb(277, 53, 13);
+    color: white;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/*******************************************/
+/*Media querys*/
 
 @media (max-width: 991px) {
   .bg-navbar-orange {
