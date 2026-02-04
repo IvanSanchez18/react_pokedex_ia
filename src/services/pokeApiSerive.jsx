@@ -17,4 +17,11 @@ function getMoveDetails(url){
     return fetch(url).then((response) => response.json());
 }
 
-export {getPokemons, getPokemonDetails, getMoveDetails};
+function getTypes() {
+    const url = `${BASE_URL}/type`;
+    return fetch(url)
+        .then(res => res.json())
+        .then(data => data.results);
+}
+
+export { getPokemons, getPokemonDetails, getMoveDetails, getTypes };

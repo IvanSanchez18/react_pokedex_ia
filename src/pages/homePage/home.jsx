@@ -8,8 +8,8 @@ import { getPokemons } from "../../services/pokeApiSerive"
 import { Row, Pagination, Col } from 'react-bootstrap';
 
 
-function Home() {
-    
+function Home({ selectedType }) {
+
     const pokemonPerPage = 9;
 
     const [nextPage, setNextPage] = useState(1);
@@ -17,83 +17,96 @@ function Home() {
     const [totalPokemons, setTotalPokemons] = useState(0);
     const [pokemons, setPokemons] = useState([]);
 
-    const getPokemonPage = (page) => {
-        getPokemons(page, pokemonPerPage).then((response) => {
-            setPokemons(response.results);
-            setTotalPokemons(response.count);
-            setCurrentPage(page);
-        });
+    const getPokemonPage = async (page) => {
+        if (selectedType) {
+            const res = await fetch(`https://pokeapi.co/api/v2/type/${selectedType}`);
+            const data = await res.json();
+            const allPokemonsOfType = data.pokemon.map(p => p.pokemon);
+            setTotalPokemons(allPokemonsOfType.length);
+            const offset = (page - 1) * pokemonPerPage;
+            setPokemons(allPokemonsOfType.slice(offset, offset + pokemonPerPage));
+        } else {
+            getPokemons(page, pokemonPerPage).then((response) => {
+                setPokemons(response.results);
+                setTotalPokemons(response.count);
+            });
+        }
+        setCurrentPage(page);
     }
 
     const generatePagination = () => {
 
         let maxPage = Math.ceil(totalPokemons / pokemonPerPage);
-        
+
         let paginationCode = (<Pagination>
             <Pagination.Prev disabled={currentPage === 1} onClick={() => setNextPage(nextPage - 1)} />
-            
+
             {currentPage - 3 == 1 ? (
                 <>
-                <Pagination.Item onClick={() => setNextPage(1)}>1</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(1)}>1</Pagination.Item>
                 </>
             ) : currentPage - 3 > 0 ? (
                 <>
-                <Pagination.Item onClick={() => setNextPage(1)}>1</Pagination.Item>
-                <Pagination.Ellipsis disabled />
+                    <Pagination.Item onClick={() => setNextPage(1)}>1</Pagination.Item>
+                    <Pagination.Ellipsis disabled />
                 </>
             ) : ""}
 
             {currentPage - 2 > 0 ? (
                 <>
-                <Pagination.Item onClick={() => setNextPage(currentPage - 2)}>{currentPage - 2}</Pagination.Item>
-                <Pagination.Item onClick={() => setNextPage(currentPage - 1)}>{currentPage - 1}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(currentPage - 2)}>{currentPage - 2}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(currentPage - 1)}>{currentPage - 1}</Pagination.Item>
                 </>
             ) : currentPage - 1 > 0 ? (
                 <>
-                <Pagination.Item onClick={() => setNextPage(currentPage - 1)}>{currentPage - 1}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(currentPage - 1)}>{currentPage - 1}</Pagination.Item>
                 </>
-            ) : "" }
+            ) : ""}
 
             <Pagination.Item active>{currentPage}</Pagination.Item>
             {currentPage + 2 < maxPage ? (
                 <>
-                <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
-                <Pagination.Item onClick={() => setNextPage(currentPage + 2)}>{currentPage + 2}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(currentPage + 2)}>{currentPage + 2}</Pagination.Item>
                 </>
             ) : currentPage + 1 < maxPage ? (
                 <>
-                <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
-                <Pagination.Item onClick={() => setNextPage(currentPage + 2)}>{currentPage + 2}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(currentPage + 2)}>{currentPage + 2}</Pagination.Item>
                 </>
             ) : currentPage + 1 == maxPage ? (
                 <>
-                <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
                 </>
-            ) : "" }
+            ) : ""}
 
             {currentPage + 3 < maxPage ? (
                 <>
-                <Pagination.Ellipsis disabled />
-                <Pagination.Item onClick={() => setNextPage(maxPage)}>{maxPage}</Pagination.Item>
+                    <Pagination.Ellipsis disabled />
+                    <Pagination.Item onClick={() => setNextPage(maxPage)}>{maxPage}</Pagination.Item>
                 </>
-            ) : "" }
+            ) : ""}
 
             {currentPage + 3 == maxPage ? (
                 <>
-                <Pagination.Item onClick={() => setNextPage(maxPage)}>{maxPage}</Pagination.Item>
+                    <Pagination.Item onClick={() => setNextPage(maxPage)}>{maxPage}</Pagination.Item>
                 </>
-            ) : "" }
+            ) : ""}
 
             <Pagination.Next disabled={currentPage === maxPage} onClick={() => setNextPage(nextPage + 1)} />
         </Pagination>);
 
         return paginationCode;
-        
+
     }
 
     useEffect(() => {
+        setNextPage(1);
+    }, [selectedType]);
+
+    useEffect(() => {
         getPokemonPage(nextPage);
-    }, [nextPage]);
+    }, [nextPage, selectedType]);
 
     return (
         <>
@@ -103,9 +116,9 @@ function Home() {
                 ))}
             </Row>
             <Row>
-               <Col className='d-flex justify-content-center pagination-container'>
-                {generatePagination()}
-               </Col>
+                <Col className='d-flex justify-content-center pagination-container'>
+                    {generatePagination()}
+                </Col>
             </Row>
         </>
     )

@@ -72,25 +72,79 @@
   margin-bottom: 5px;
 }
 
-.input-fuego{
-    color: white !important;
-    background-color: red !important;
+.grass {
+    background-color: rgb(90, 217, 90) !important;
+    
 }
 
-.input-psiquico{
-    color: white !important;
-    background-color: purple !important;
+.fire {
+    background-color: rgb(255, 69, 58) !important;
 }
 
-.input-planta{
-    color: white !important;
-    background-color: green !important;
+.water {
+    background-color: rgb(58, 167, 255) !important;
 }
 
-.input-agua{
-    color: white !important;
-    background-color: blue !important;
+.electric {
+    background-color: rgb(255, 215, 0) !important;
 }
+
+.ice {
+    background-color: rgb(173, 216, 230) !important;
+}
+
+.poison {
+    background-color: rgb(156, 39, 176) !important;
+}
+
+.ground {
+    background-color: rgb(103, 87, 37) !important;
+}
+
+.fighting {
+    background-color: rgb(255, 25, 105) !important;
+}
+
+.bug {
+    background-color: rgb(255, 40, 198) !important;
+}
+
+.rock {
+    background-color: gray !important;
+}
+
+.ghost {
+    background-color: rgb(126, 97, 131) !important;
+}
+
+.dragon {
+    background-color: orange !important;
+}
+
+.psychic {
+    background-color: rgb(199, 36, 228) !important;
+}
+
+.dark {
+    background-color: rgb(58, 58, 58) !important;
+}
+
+.fairy {
+    background-color: rgb(255, 215, 170) !important;
+}
+
+.normal {
+    background-color: rgb(153, 153, 153) !important;
+}
+
+.steel {
+    background-color: rgba(77, 63, 36, 0.751) !important;
+}
+
+.flying {
+    background-color: rgba(33, 221, 217, 0.751) !important;
+}
+
 
 /***/
 
