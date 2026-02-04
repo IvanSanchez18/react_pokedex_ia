@@ -1,16 +1,68 @@
-# React + Vite
+# React Pokédex IA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación de Pokédex moderna construida con React 19 y Vite, diseñada para explorar el mundo Pokémon de manera interactiva. Este proyecto utiliza la [PokéAPI](https://pokeapi.co/) para obtener datos en tiempo real.
 
-Currently, two official plugins are available:
+## 🚀 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Exploración de Pokémon:** Lista completa de Pokémon con detalles básicos.
+- **Búsqueda Dinámica:** Filtra Pokémon por nombre o tipo directamente desde la barra de navegación.
+- **Filtrado por Generación:** Explora Pokémon específicos de las primeras generaciones.
+- **Diseño Responsivo:** Interfaz moderna y adaptable utilizando React Bootstrap.
+- **Servicios:** Consumo eficiente de API mediante servicios dedicados.
 
-## React Compiler
+## 🛠️ Tecnologías Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Core:** [React 19](https://react.dev/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Routing:** [React Router DOM v7](https://reactrouter.com/)
+- **Estilos:** [Bootstrap 5](https://getbootstrap.com/) y [React Bootstrap](https://react-bootstrap.github.io/)
+- **Iconos:** [Bootstrap Icons](https://icons.getbootstrap.com/)
+- **API:** [PokéAPI](https://pokeapi.co/)
 
-## Expanding the ESLint configuration
+## 📦 Instalación y Configuración Local
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Sigue estos pasos para ejecutar el proyecto en tu máquina local:
+
+### 1. Clonar el repositorio
+
+```bash
+git clone <url-del-repositorio>
+cd react_pokedex_ia
+```
+
+### 2. Instalar dependencias
+
+Asegúrate de tener [Node.js](https://nodejs.org/) instalado. Luego ejecuta:
+
+```bash
+npm install
+```
+
+### 3. Iniciar el servidor de desarrollo
+
+Para ejecutar la aplicación en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en `http://localhost:5173`.
+
+### 4. Construir para producción
+
+Si deseas generar los archivos para despliegue:
+
+```bash
+npm run build
+```
+
+## 📂 Estructura del Proyecto
+
+- `src/components`: Componentes reutilizables como la tarjeta de Pokémon.
+- `src/pages`: Páginas principales de la aplicación (Home, Page1, Page2).
+- `src/services`: Lógica para el consumo de la PokéAPI y helpers.
+- `src/assets`: Recursos estáticos como imágenes y logos.
+
+## ✒️ Autor
+
+- **Andriufit** - _Desarrollo Inicial_
