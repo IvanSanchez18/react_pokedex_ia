@@ -1,8 +1,10 @@
 
 const BASE_URL = "https://pokeapi.co/api/v2/";
 
-function getPokemons(take = 151) {
-    const url = `${BASE_URL}/pokemon?limit=${take}`;
+function getPokemons(currentPage, take) {
+
+    const offset = (currentPage - 1) * take;
+    const url = `${BASE_URL}/pokemon?limit=${take}&offset=${offset}`;
 
     return fetch(url).then((response) => response.json());
 }
