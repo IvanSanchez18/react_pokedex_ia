@@ -20,7 +20,6 @@ function Home() {
             setPokemons(response.results);
             setTotalPokemons(response.count);
             setCurrentPage(page);
-            generatePagination();
         });
     }
 
@@ -29,7 +28,7 @@ function Home() {
         let maxPage = Math.ceil(totalPokemons / pokemonPerPage);
         
         let paginationCode = (<Pagination>
-            <Pagination.Prev onClick={() => setNextPage(nextPage - 1)} />
+            <Pagination.Prev disabled={currentPage === 1} onClick={() => setNextPage(nextPage - 1)} />
             
             {currentPage - 3 > 0 ? (
                 <>
@@ -43,12 +42,26 @@ function Home() {
                 <Pagination.Item onClick={() => setNextPage(currentPage - 2)}>{currentPage - 2}</Pagination.Item>
                 <Pagination.Item onClick={() => setNextPage(currentPage - 1)}>{currentPage - 1}</Pagination.Item>
                 </>
+            ) : currentPage - 1 > 0 ? (
+                <>
+                <Pagination.Item onClick={() => setNextPage(currentPage - 1)}>{currentPage - 1}</Pagination.Item>
+                </>
             ) : "" }
+
             <Pagination.Item active>{currentPage}</Pagination.Item>
             {currentPage + 2 < maxPage ? (
                 <>
                 <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
                 <Pagination.Item onClick={() => setNextPage(currentPage + 2)}>{currentPage + 2}</Pagination.Item>
+                </>
+            ) : currentPage + 1 < maxPage ? (
+                <>
+                <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
+                <Pagination.Item onClick={() => setNextPage(currentPage + 2)}>{currentPage + 2}</Pagination.Item>
+                </>
+            ) : currentPage + 1 == maxPage ? (
+                <>
+                <Pagination.Item onClick={() => setNextPage(currentPage + 1)}>{currentPage + 1}</Pagination.Item>
                 </>
             ) : "" }
 
@@ -59,7 +72,13 @@ function Home() {
                 </>
             ) : "" }
 
-            <Pagination.Next onClick={() => setNextPage(nextPage + 1)} />
+            {currentPage + 3 == maxPage ? (
+                <>
+                <Pagination.Item onClick={() => setNextPage(maxPage)}>{maxPage}</Pagination.Item>
+                </>
+            ) : "" }
+
+            <Pagination.Next disabled={currentPage === maxPage} onClick={() => setNextPage(nextPage + 1)} />
         </Pagination>);
 
         return paginationCode;
